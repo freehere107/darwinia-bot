@@ -1,0 +1,8 @@
+{
+    "port": 1439,
+    "FaucetSeed": "",
+    "bots": {
+        "telegram": true,
+        "wechat": true
+    }
+}
