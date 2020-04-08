@@ -1,4 +1,8 @@
-# Darwinia Bot
+<h1 align="center">
+𝒹𝒶𝓇𝓌𝒾𝓃𝒾𝒶-𝒷ℴ𝓉
+</h1>
+
+[![Node.js CI][workflow-badge]][github]
 
 ## Arch
 
@@ -33,3 +37,7 @@ to Grammer Server, then the server will parse the context bot clients sent to it
 require!
 
 The Grammer system should keep updating, we are expected to all of your contributes!
+
+
+[github]: https://github.com/darwinia-network/darwinia-bot.js
+[workflow-badge]: https://github.com/darwinia-network/darwinia-bot/workflows/Node.js%20CI/badge.svg

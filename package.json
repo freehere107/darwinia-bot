@@ -29,6 +29,6 @@
     },
     "scripts": {
         "build": "tsc --strict",
-        "lint": "tslint --project ./tsconfig.json --fix"
+        "lint": "tsc --noEmit && tslint -c ./tslint.json src/**/*.ts"
     }
 }
