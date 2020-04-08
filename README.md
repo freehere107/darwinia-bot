@@ -31,10 +31,9 @@ Note: Don't be overhead to darwinia bots, they're real lives, there must be more
 
 ## Grammer
 
-All bot interacting based on the chat stream, Grammer Server will listen to the context of every messages,
-Once they start with `/` or any other prefix specfied in bot clients, the bot clients will send the context
-to Grammer Server, then the server will parse the context bot clients sent to it and do stuffs whatevery we
-require!
+All bot-interacting are based on the chat stream, `Grammer Server` will listen to the context which have 
+specfied prefix like `/`, once the matched messages received by the bot clients, they will be sent to the
+`Grammer Server`, and the server will parse them and do stuffs whatevery we required!
 
 The Grammer system should keep updating, we are expected to all of your contributes!
 
