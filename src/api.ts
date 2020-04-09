@@ -1,6 +1,7 @@
 import customizeType from "./json/types.json";
 import IConfig from "./cfg";
 import Keyring from "@polkadot/keyring";
+import { log } from "./share";
 import { ApiPromise, WsProvider } from "@polkadot/api";
 
 
@@ -40,9 +41,9 @@ export default class API {
         ex.signAndSend(this.account, {}, async (r: any) => {
             const status = r.status;
             if (status.isInBlock) {
-                console.log(`Included at block hash: ${status.asInBlock.toHex()}`);
+                log(`Included at block hash: ${status.asInBlock.toHex()}`);
                 r.events && r.events.forEach(async (r: any) => {
-                    console.log(
+                    log(
                         "\t" +
                             r.phase.toString() +
                             `: ${r.event.section}.${r.event.method}` +
@@ -52,11 +53,11 @@ export default class API {
                     if (r.event.data[0].isModule) {
                         const doc = await this.api.registry.findMetaError(r.event.data[0].asModule);
                         const err = `${doc.name}.${doc.section} - ${doc.documentation.join(" ")}`;
-                        console.error(err);
+                        log(err);
                     }
                 });
             } else if (status.isFinalized) {
-                console.log("tx end");
+                log("tx end");
             }
         });
 

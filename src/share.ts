@@ -1,12 +1,15 @@
 /* this file is prepared to migrate to darwinia.js */
-
 import chalk from "chalk";
+
+const l = chalk.dim("[ ");
+const r = chalk.dim(" ]: ");
 
 export enum Logger {
     Error,
     Event,
     Info,
     Trace,
+    Wait,
     Warn,
 }
 
@@ -18,16 +21,32 @@ export enum LoggerEnv {
     Trace,
 }
 
-// Env condition
+/**
+ * @description - check if we are under browser
+ */
 export function isBrowser(): boolean {
-    return (window === undefined);
+    try {
+        if (window === undefined) {
+            return false;
+        } else {
+            return true;
+        }
+    } catch (e) {
+        return false;
+    }
 }
 
-// Logs
+/**
+ * @description - infer current env, if we have log limits
+ */
 export function loggerEnv(): LoggerEnv {
-    const label: string = isBrowser() ?
+    let label: string = isBrowser() ?
         (window as any).LOGGER :
         process.env.LOGGER;
+
+    if (label === undefined) {
+        label = "";
+    }
 
     switch (label.toLowerCase()) {
         case "error":
@@ -41,6 +60,10 @@ export function loggerEnv(): LoggerEnv {
     }
 }
 
+/**
+ * infer if shoud out put log
+ * @param label Logger - log type
+ */
 export function shouldOutputLog(label: Logger): boolean {
     const env: LoggerEnv = loggerEnv();
 
@@ -56,24 +79,55 @@ export function shouldOutputLog(label: Logger): boolean {
     return true;
 }
 
-export function log(s: any, logger?: Logger) {
-    const l = chalk.dim("[ ");
-    const r = chalk.dim(" ]:");
-
-    switch (logger) {
-        case Logger.Error:
-            console.error(`${l + chalk.red("error") + r} ${s}`);
-        case Logger.Event:
-            break;
-        case Logger.Warn:
-            console.log(`${l + chalk.yellow("warn") + r} ${s}`);
-            break;
-        default:
-            console.log(chalk.dim(`[ ${chalk.cyan.dim("info")} ]: ${s}`));
-            break;
+/**
+ * print messages to console, including stdout and stderr(error)
+ * @param label string - the log label
+ * @param context string - the log context
+ */
+function flush(label: string, context: string): void {
+    let str = l + label + r + context;
+    if (label === "error") {
+        console.error(str);
+    } else {
+        console.log(str);
     }
 }
 
-log.prototype.wait = (): void => {
-    console.log("wait");
+/**
+ * @param s string - the log out string
+ */
+export function log(s: string) {
+    if (shouldOutputLog(Logger.Info)) {
+        flush(chalk.cyan.dim("info"), s);
+    }
+}
+
+log.warn = (s: string): void => {
+    if (shouldOutputLog(Logger.Warn)) {
+        flush(chalk.yellow("warn"), s);
+    }
+}
+
+log.wait = (s: string): void => {
+    if (shouldOutputLog(Logger.Wait)) {
+        flush(chalk.cyan("wait"), s);
+    }
+}
+
+log.err = (s: string): void => {
+    if (shouldOutputLog(Logger.Error)) {
+        flush(chalk.red("error"), s);
+    }
+}
+
+/**
+ * log error and quit process,
+ * @description - only support in nodejs
+ * @param s string - the log context
+ */
+log.ex = (s: string): void => {
+    if (shouldOutputLog(Logger.Error)) {
+        flush(chalk.red("error"), s);
+        process.exit(1);
+    }
 }

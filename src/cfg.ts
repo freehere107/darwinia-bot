@@ -10,11 +10,14 @@ interface IBots {
 
 /**
  * Faucet
+ * @param supply number - total grant limit times
+ * @param interval number - grant interval for every account
  * @param amount number - amount faucet sent every request
  */
 interface IFaucet {
     amount: number;
     interval: number;
+    supply: number;
 }
 
 /**

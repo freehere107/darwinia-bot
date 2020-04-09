@@ -1,6 +1,6 @@
 {
     "port": 1439,
-    "naucetSeed": "",
+    "faucetSeed": "",
     "node": "ws://35.234.33.88:9944",
     "bots": {
         "telegram": true,
@@ -8,7 +8,8 @@
     },
     "commands": {
         "faucet": {
-            "amount": 101010,
+            "suply": 400,
+            "amount": 1000,
             "interval": 24
         }
     }
