@@ -1,5 +1,10 @@
+import { IGrammer } from "./grammer";
+
 export type ParentQuery = any;
 
+/**
+ * command arguments
+ */
 export interface ICommandArgs {
     ident: string;
     message: string;
@@ -9,7 +14,6 @@ export interface ICommandArgs {
  * Basic command class
  */
 export class Command {
-    // Identity of a command
     public ident: string;
     public message: string;
     public parent: ParentQuery;
@@ -23,7 +27,18 @@ export class Command {
     /**
      * @param msg string
      */
-    public parse(): string {
-        return this.message;
+    public parse(g: IGrammer): string {
+        switch (this.ident) {
+            case "docs":
+                return g.docs;
+            case "book":
+                return g.book;
+            case "more":
+                return g.more;
+            case "faucet":
+                return g.faucet.supply;
+            default:
+                return g.help;
+        }
     }
 }

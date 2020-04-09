@@ -36,9 +36,9 @@ export default class API {
      * @param addr string
      * @param amount number
      */
-    public async transfer(addr: string, amount: number): Promise<boolean> {
+    public async transfer(addr: string, amount: number): Promise<string> {
         const ex = await this.api.tx.balances.transfer(addr, amount);
-        ex.signAndSend(this.account, {}, async (r: any) => {
+        const hash: string = await ex.signAndSend(this.account, {}, async (r: any) => {
             const status = r.status;
             if (status.isInBlock) {
                 log(`Included at block hash: ${status.asInBlock.toHex()}`);
@@ -61,6 +61,6 @@ export default class API {
             }
         });
 
-        return true;
+        return hash;
     }
 }

@@ -1,5 +1,6 @@
 import "graphql-import-node";
 import { ApolloServer } from 'apollo-server';
+import { IGrammer } from "./grammer";
 import * as GrammerSchema from "./graphql/schema.gql";
 import { Command, ParentQuery, ICommandArgs } from "./cmd";
 import IConfig from "./cfg";
@@ -9,9 +10,11 @@ import IConfig from "./cfg";
  */
 export default class GrammerServer {
     private port: number;
+    private grammer: IGrammer;
 
-    constructor(config: IConfig) {
+    constructor(config: IConfig, grammer: IGrammer) {
         this.port = config.port;
+        this.grammer = grammer;
     }
 
     /**
@@ -25,7 +28,9 @@ export default class GrammerServer {
                     answer: (
                         parent: ParentQuery,
                         args: ICommandArgs
-                    ) => new Command(parent, args).parse()
+                    ) => new Command(
+                        parent, args
+                    ).parse(this.grammer)
                 }
             }
         });

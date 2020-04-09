@@ -8,7 +8,7 @@
     },
     "commands": {
         "faucet": {
-            "suply": 400,
+            "supply": 400,
             "amount": 1000,
             "interval": 24
         }
