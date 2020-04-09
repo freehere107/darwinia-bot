@@ -18,27 +18,27 @@ bots = importlib.import_module("lib")
 # object in error.
 def help_cmd(update, context):
     """show help"""
-    update.reply_text(bots.answer("help", update.message.text))
+    update.message.reply_text(bots.answer("help", update.message.text))
 
 
 def book(update, context):
     """resp the link of darwinia book"""
-    update.reply_text(bots.answer("book", update.message.text))
+    update.message.reply_text(bots.answer("book", update.message.text))
 
 
 def docs(update, context):
     """resp the link of darwinia book"""
-    update.reply_text(bots.answer("docs", update.message.text))
+    update.message.reply_text(bots.answer("docs", update.message.text))
 
 
 def more(update, context):
     """resp the link of darwinia book"""
-    update.reply_text(bots.answer("more", update.message.text))
+    update.message.reply_text(bots.answer("more", update.message.text))
 
 
 def faucet(update, context):
     """resp the link of darwinia book"""
-    update.reply_text(bots.answer("faucet", update.message.text))
+    update.message.reply_text(bots.answer("faucet", update.message.text))
 
 
 def main():
@@ -71,6 +71,7 @@ def main():
 
     # Start the Bot
     updater.start_polling()
+    print("telegram-bot is online now")
 
     # Block until you press Ctrl-C or the process receives SIGINT, SIGTERM or
     # SIGABRT. This should be used most of the time, since start_polling() is

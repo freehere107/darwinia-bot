@@ -3,18 +3,15 @@ help: >-
   Looking for some help?
 
   
-  - `/help` - miss me?
+  - /help - miss me?
   
-  - `/book` - roll up for the magic mystery tour!
+  - /book - roll up for the magic mystery tour!
   
-  - `/docs` - let's explore the darwinia world!
+  - /docs - let's explore the darwinia world!
   
-  - `/more` - there must be more to life than being a bot!
+  - /more - there must be more to life than being a bot!
   
-  - `/faucet` - let`s talk about it, woundn`t it be nice?
-
-  
-  Don't forget me
+  - /faucet - let`s talk about it, woundn`t it be nice?
 
 # `book` command
 book: >-
