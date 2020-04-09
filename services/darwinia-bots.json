@@ -1,0 +1,9 @@
+{
+    "apps": [{
+	      "name": "grammer-server",
+	      "script": "npm run grammer"
+    }, {
+	      "name": "telegram-bot",
+	      "script": "npm run tg"
+    }]
+}

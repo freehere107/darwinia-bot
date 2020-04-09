@@ -44,7 +44,7 @@ def faucet(update, context):
 def main():
     """Run bot."""
     # Loads json config
-    with open("../../config.json", "r") as configFile:
+    with open("config.json", "r") as configFile:
         config = json.loads(configFile.read())
 
     if config is None:

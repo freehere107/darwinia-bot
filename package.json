@@ -26,9 +26,12 @@
         "typescript": "^3.8.3"
     },
     "scripts": {
+        "start": "pm2 start services/darwinia-bots.json",
+        "stop": "pm2 stop services/darwinia-bots.json",
         "grammer": "ts-node src/bin/grammer.ts",
         "build": "tsc --strict",
-        "lint": "tsc --noEmit && tslint -c ./tslint.json src/**/*.ts"
+        "lint": "tsc --noEmit && tslint -c ./tslint.json src/**/*.ts",
+        "tg": "python3 src/bots/telegram_bot.py"
     },
     "husky": {
         "hooks": {
