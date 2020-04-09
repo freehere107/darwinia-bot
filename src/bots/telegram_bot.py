@@ -1,55 +1,81 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# This program is dedicated to the public domain under the CC0 license.
+
 """
-telegram bot implementation
+Darwinia telegram bot
 """
-from time import sleep
+import json
+import importlib
 
-import telegram
-from telegram.error import NetworkError, Unauthorized
+from telegram.ext import Updater, CommandHandler
 
-from bots import has_command
+bots = importlib.import_module("lib")
 
-UPDATE_ID = None
+
+# Define a few command handlers. These usually take the two arguments update
+# and context. Error handlers also receive the raised TelegramError
+# object in error.
+def help_cmd(update, context):
+    """show help"""
+    update.reply_text(bots.answer("help", update.message.text))
+
+
+def book(update, context):
+    """resp the link of darwinia book"""
+    update.reply_text(bots.answer("book", update.message.text))
+
+
+def docs(update, context):
+    """resp the link of darwinia book"""
+    update.reply_text(bots.answer("docs", update.message.text))
+
+
+def more(update, context):
+    """resp the link of darwinia book"""
+    update.reply_text(bots.answer("more", update.message.text))
+
+
+def faucet(update, context):
+    """resp the link of darwinia book"""
+    update.reply_text(bots.answer("faucet", update.message.text))
+
 
 def main():
-    """Run the bot."""
-    global UPDATE_ID
+    """Run bot."""
+    # Loads json config
+    with open("../../config.json", "r") as configFile:
+        config = json.loads(configFile.read())
 
-    # Telegram Bot Authorization Token
-    bot = telegram.Bot('TOKEN')
+    if config is None:
+        print("can not find config file")
+        return
 
-    # get the first pending update_id, this is so we can skip over it in case
-    # we get an "Unauthorized" exception.
-    try:
-        update_id = bot.get_updates()[0].update_id
-    except IndexError:
-        update_id = None
-    except Unauthorized:
-        UPDATE_ID += 1
+    # Create the Updater and pass it your bot's token.
+    # Make sure to set use_context=True to use the new context based callbacks
+    # Post version 12 this will no longer be necessary
+    updater = Updater(
+        config["plugins"]["telegram_bot_token"],
+        use_context=True
+    )
 
-    while True:
-        try:
-            echo(bot)
-        except NetworkError:
-            sleep(1)
-        except Unauthorized:
-            # The user has removed or blocked the bot.
-            update_id += 1
+    # Get the dispatcher to register handlers
+    dp = updater.dispatcher
 
+    # on different commands - answer in Telegram
+    dp.add_handler(CommandHandler("help", help_cmd))
+    dp.add_handler(CommandHandler("book", book))
+    dp.add_handler(CommandHandler("docs", docs))
+    dp.add_handler(CommandHandler("more", more))
+    dp.add_handler(CommandHandler("faucet", more))
 
-def echo(bot):
-    """Echo the message the user sent."""
-    global UPDATE_ID
+    # Start the Bot
+    updater.start_polling()
 
-    # Request updates after the last update_id
-    for update in bot.get_updates(offset=UPDATE_ID, timeout=10):
-        UPDATE_ID = update.update_id + 1
-
-        # Our bot can receive updates without messages
-        if update.message:
-            # Reply to the message
-            text = update.message.text
-            if has_command(text):
-                update.message.reply_text(text)
+    # Block until you press Ctrl-C or the process receives SIGINT, SIGTERM or
+    # SIGABRT. This should be used most of the time, since start_polling() is
+    # non-blocking and will stop the bot gracefully.
+    updater.idle()
 
 
 if __name__ == '__main__':

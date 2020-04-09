@@ -12,5 +12,8 @@
             "amount": 1000,
             "interval": 24
         }
+    },
+    "plugins": {
+        "telemgram_bot_token": ""
     }
 }

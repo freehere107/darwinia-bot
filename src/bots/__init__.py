@@ -2,6 +2,7 @@
 library
 """
 
-from .share import has_command
+from .lib import has_command
+from .lib import answer
 
-__all__ = ["has_command"]
+__all__ = ["answer", "has_command"]

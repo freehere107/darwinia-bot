@@ -36,7 +36,7 @@ export default class GrammerServer {
         });
 
         server.listen(this.port).then(() => {
-            console.log(`🚀 Server ready at ${this.port}`);
+            console.log(`🚀 Grammer Server ready at ${this.port}`);
         });
     }
 }
