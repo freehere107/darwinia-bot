@@ -37,6 +37,17 @@ specfied prefix like `/`, once the matched messages received by the bot clients,
 
 The Grammer system should keep updating, we are expected to all of your contributes!
 
+## bot
+
+### Install
+
+    virtualenv -p python3.6 env
+    . env/bin/activate
+    pip install -r requirements.txt
+
+### run
+    python src/bots/telegram_bot.py
+
 
 [github]: https://github.com/darwinia-network/darwinia-bot.js
 [workflow-badge]: https://github.com/darwinia-network/darwinia-bot/workflows/Node.js%20CI/badge.svg
